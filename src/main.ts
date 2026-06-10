@@ -2,24 +2,20 @@ import './styles/main.css';
 import { getRides } from './api/mobilityApi';
 import type { Ride, RideStatus, RideType } from './types/ride';
 import { formatCurrency, formatDateTime } from './utils/formatters';
+import {
+  filterAndSortRides,
+  getUniqueCities,
+  type RideFilters,
+} from './utils/rideFilters';
 
 const app = document.querySelector<HTMLDivElement>('#app');
 
-type StatusFilter = RideStatus | 'all';
-type SortOption = 'newest' | 'oldest' | 'price_desc' | 'price_asc';
-
-interface Filters {
-  status: StatusFilter;
-  city: string;
-  searchTerm: string;
-  sortBy: SortOption;
-}
 
 let allRides: Ride[] = [];
 
 let lastFocusedElement: HTMLElement | null = null;
 
-const filters: Filters = {
+const filters: RideFilters = {
   status: 'all',
   city: 'all',
   searchTerm: '',
@@ -46,53 +42,6 @@ function getTypeLabel(type: RideType): string {
   return labels[type];
 }
 
-function getUniqueCities(rides: Ride[]): string[] {
-  const cities = rides.map((ride) => ride.city);
-  return [...new Set(cities)].sort();
-}
-
-function getFilteredRides(): Ride[] {
-  let filteredRides = [...allRides];
-
-  if (filters.status !== 'all') {
-    filteredRides = filteredRides.filter((ride) => ride.status === filters.status);
-  }
-
-  if (filters.city !== 'all') {
-    filteredRides = filteredRides.filter((ride) => ride.city === filters.city);
-  }
-
-  if (filters.searchTerm.trim()) {
-    const search = filters.searchTerm.toLowerCase().trim();
-
-    filteredRides = filteredRides.filter((ride) => {
-      return (
-        ride.driver.toLowerCase().includes(search) ||
-        ride.customer.toLowerCase().includes(search) ||
-        ride.origin.toLowerCase().includes(search) ||
-        ride.destination.toLowerCase().includes(search)
-      );
-    });
-  }
-
-  filteredRides.sort((a, b) => {
-    if (filters.sortBy === 'newest') {
-      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-    }
-
-    if (filters.sortBy === 'oldest') {
-      return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
-    }
-
-    if (filters.sortBy === 'price_desc') {
-      return b.price - a.price;
-    }
-
-    return a.price - b.price;
-  });
-
-  return filteredRides;
-}
 
 function renderDashboard(rides: Ride[]): string {
   const total = rides.length;
@@ -372,7 +321,7 @@ function updateResults(): void {
   const resultsCount = document.querySelector<HTMLSpanElement>('#resultsCount');
   const ridesList = document.querySelector<HTMLElement>('#ridesList');
 
-  const filteredRides = getFilteredRides();
+  const filteredRides = filterAndSortRides(allRides, filters);
 
   if (dashboardContainer) {
     dashboardContainer.innerHTML = renderDashboard(filteredRides);
@@ -402,7 +351,7 @@ function setupFilterEvents(): void {
   });
 
   statusFilter?.addEventListener('change', (event) => {
-    filters.status = (event.target as HTMLSelectElement).value as StatusFilter;
+    filters.status = (event.target as HTMLSelectElement).value as RideFilters['status'];
     updateResults();
   });
 
@@ -412,7 +361,7 @@ function setupFilterEvents(): void {
   });
 
   sortFilter?.addEventListener('change', (event) => {
-    filters.sortBy = (event.target as HTMLSelectElement).value as SortOption;
+    filters.sortBy = (event.target as HTMLSelectElement).value as RideFilters['sortBy'];
     updateResults();
   });
 }
