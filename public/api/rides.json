@@ -1,0 +1,54 @@
+[
+  {
+    "id": 1,
+    "type": "ride",
+    "status": "in_progress",
+    "city": "Curitiba",
+    "driver": "Marcos Silva",
+    "customer": "Ana Souza",
+    "origin": "Centro",
+    "destination": "Batel",
+    "distanceKm": 6.4,
+    "price": 28.9,
+    "createdAt": "2026-06-10T09:20:00"
+  },
+  {
+    "id": 2,
+    "type": "delivery",
+    "status": "pending",
+    "city": "São Paulo",
+    "driver": "Carla Mendes",
+    "customer": "Restaurante Bella Massa",
+    "origin": "Moema",
+    "destination": "Vila Mariana",
+    "distanceKm": 4.2,
+    "price": 18.5,
+    "createdAt": "2026-06-10T10:05:00"
+  },
+  {
+    "id": 3,
+    "type": "ride",
+    "status": "completed",
+    "city": "Rio de Janeiro",
+    "driver": "Paulo Henrique",
+    "customer": "Lucas Pereira",
+    "origin": "Copacabana",
+    "destination": "Botafogo",
+    "distanceKm": 5.1,
+    "price": 24.7,
+    "createdAt": "2026-06-10T08:45:00"
+  },
+  {
+    "id": 4,
+    "type": "delivery",
+    "status": "cancelled",
+    "city": "Belo Horizonte",
+    "driver": "Juliana Costa",
+    "customer": "Mercado Central",
+    "origin": "Savassi",
+    "destination": "Funcionários",
+    "distanceKm": 3.8,
+    "price": 15.2,
+    "createdAt": "2026-06-10T11:15:00"
+  }
+]
