@@ -154,14 +154,14 @@ function renderFilters(): string {
         <select id="cityFilter">
           <option value="all" ${filters.city === 'all' ? 'selected' : ''}>Todas</option>
           ${cities
-            .map(
-              (city) => `
+      .map(
+        (city) => `
                 <option value="${city}" ${filters.city === city ? 'selected' : ''}>
                   ${city}
                 </option>
               `,
-            )
-            .join('')}
+      )
+      .join('')}
         </select>
       </div>
 
@@ -200,8 +200,120 @@ function renderRideCard(ride: Ride): string {
         <p><strong>Valor:</strong> ${formatCurrency(ride.price)}</p>
         <p><strong>Horário:</strong> ${formatDateTime(ride.createdAt)}</p>
       </div>
+
+      <div class="ride-card__footer">
+        <button class="details-button" data-ride-id="${ride.id}">
+          Ver detalhes
+        </button>
+      </div>
     </article>
   `;
+}
+
+function renderRideDetails(ride: Ride): string {
+  return `
+    <div class="details-overlay" id="detailsOverlay">
+      <aside class="details-panel" aria-label="Detalhes da operação">
+        <div class="details-panel__header">
+          <div>
+            <span class="eyebrow">${getTypeLabel(ride.type)}</span>
+            <h2>${ride.origin} → ${ride.destination}</h2>
+          </div>
+
+          <button class="details-close-button" id="closeDetailsButton" aria-label="Fechar detalhes">
+            ×
+          </button>
+        </div>
+
+        <span class="status status--${ride.status}">
+          ${getStatusLabel(ride.status)}
+        </span>
+
+        <div class="details-grid">
+          <div class="details-item">
+            <span>Cidade</span>
+            <strong>${ride.city}</strong>
+          </div>
+
+          <div class="details-item">
+            <span>Motorista</span>
+            <strong>${ride.driver}</strong>
+          </div>
+
+          <div class="details-item">
+            <span>Cliente</span>
+            <strong>${ride.customer}</strong>
+          </div>
+
+          <div class="details-item">
+            <span>Origem</span>
+            <strong>${ride.origin}</strong>
+          </div>
+
+          <div class="details-item">
+            <span>Destino</span>
+            <strong>${ride.destination}</strong>
+          </div>
+
+          <div class="details-item">
+            <span>Distância</span>
+            <strong>${ride.distanceKm} km</strong>
+          </div>
+
+          <div class="details-item">
+            <span>Valor</span>
+            <strong>${formatCurrency(ride.price)}</strong>
+          </div>
+
+          <div class="details-item">
+            <span>Horário</span>
+            <strong>${formatDateTime(ride.createdAt)}</strong>
+          </div>
+        </div>
+      </aside>
+    </div>
+  `;
+}
+
+function openRideDetails(rideId: number): void {
+  const ride = allRides.find((item) => item.id === rideId);
+
+  if (!ride) return;
+
+  const existingOverlay = document.querySelector('#detailsOverlay');
+  existingOverlay?.remove();
+
+  document.body.insertAdjacentHTML('beforeend', renderRideDetails(ride));
+
+  const closeButton = document.querySelector<HTMLButtonElement>('#closeDetailsButton');
+  const overlay = document.querySelector<HTMLDivElement>('#detailsOverlay');
+
+  closeButton?.addEventListener('click', closeRideDetails);
+
+  overlay?.addEventListener('click', (event) => {
+    if (event.target === overlay) {
+      closeRideDetails();
+    }
+  });
+}
+
+function closeRideDetails(): void {
+  const overlay = document.querySelector('#detailsOverlay');
+  overlay?.remove();
+}
+
+function setupDetailsEvents(): void {
+  const ridesList = document.querySelector<HTMLElement>('#ridesList');
+
+  ridesList?.addEventListener('click', (event) => {
+    const target = event.target as HTMLElement;
+    const button = target.closest<HTMLButtonElement>('.details-button');
+
+    if (!button) return;
+
+    const rideId = Number(button.dataset.rideId);
+    openRideDetails(rideId);
+  });
 }
 
 function renderEmptyState(): string {
@@ -297,6 +409,7 @@ function renderApp(): void {
   `;
 
   setupFilterEvents();
+  setupDetailsEvents();
   updateResults();
 }
 
