@@ -96,7 +96,12 @@ function renderDashboard(rides: Ride[]): string {
   const total = rides.length;
   const inProgress = rides.filter((ride) => ride.status === 'in_progress').length;
   const completed = rides.filter((ride) => ride.status === 'completed').length;
-  const cancelled = rides.filter((ride) => ride.status === 'cancelled').length;
+
+  const totalRevenue = rides.reduce((sum, ride) => sum + ride.price, 0);
+  const averageTicket = total > 0 ? totalRevenue / total : 0;
+
+  const totalDistance = rides.reduce((sum, ride) => sum + ride.distanceKm, 0);
+  const averageDistance = total > 0 ? totalDistance / total : 0;
 
   return `
     <section class="dashboard-grid">
@@ -116,8 +121,18 @@ function renderDashboard(rides: Ride[]): string {
       </article>
 
       <article class="metric-card">
-        <span>Canceladas</span>
-        <strong>${cancelled}</strong>
+        <span>Receita estimada</span>
+        <strong>${formatCurrency(totalRevenue)}</strong>
+      </article>
+
+      <article class="metric-card">
+        <span>Ticket médio</span>
+        <strong>${formatCurrency(averageTicket)}</strong>
+      </article>
+
+      <article class="metric-card">
+        <span>Distância média</span>
+        <strong>${averageDistance.toFixed(1)} km</strong>
       </article>
     </section>
   `;
