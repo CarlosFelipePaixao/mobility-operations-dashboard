@@ -154,8 +154,8 @@ Durante o desenvolvimento, trabalhei principalmente com:
 
 Algumas melhorias que pretendo adicionar:
 
-* publicar o projeto em uma plataforma de deploy;
-* adicionar screenshots no README;
-* melhorar a acessibilidade do painel de detalhes;
-* adicionar mais dados simulados;
-* criar testes simples para as funções de filtro e ordenação.
+* [x] Publicar o projeto em uma plataforma de deploy
+* [x] Adicionar screenshots no README
+* [x] Adicionar mais dados simulados
+* [ ] Melhorar a acessibilidade do painel de detalhes
+* [ ] Criar testes simples para as funções de filtro e ordenação

@@ -17,6 +17,8 @@ interface Filters {
 
 let allRides: Ride[] = [];
 
+let lastFocusedElement: HTMLElement | null = null;
+
 const filters: Filters = {
   status: 'all',
   city: 'all',
@@ -228,11 +230,16 @@ function renderRideCard(ride: Ride): string {
 function renderRideDetails(ride: Ride): string {
   return `
     <div class="details-overlay" id="detailsOverlay">
-      <aside class="details-panel" aria-label="Detalhes da operação">
+      <aside
+        class="details-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="detailsTitle"
+      >
         <div class="details-panel__header">
           <div>
             <span class="eyebrow">${getTypeLabel(ride.type)}</span>
-            <h2>${ride.origin} → ${ride.destination}</h2>
+            <h2 id="detailsTitle">${ride.origin} → ${ride.destination}</h2>
           </div>
 
           <button class="details-close-button" id="closeDetailsButton" aria-label="Fechar detalhes">
@@ -290,6 +297,12 @@ function renderRideDetails(ride: Ride): string {
   `;
 }
 
+function handleDetailsKeydown(event: KeyboardEvent): void {
+  if (event.key === 'Escape') {
+    closeRideDetails();
+  }
+}
+
 function openRideDetails(rideId: number): void {
   const ride = allRides.find((item) => item.id === rideId);
 
@@ -298,11 +311,17 @@ function openRideDetails(rideId: number): void {
   const existingOverlay = document.querySelector('#detailsOverlay');
   existingOverlay?.remove();
 
+  lastFocusedElement = document.activeElement instanceof HTMLElement
+    ? document.activeElement
+    : null;
+
   document.body.insertAdjacentHTML('beforeend', renderRideDetails(ride));
+  document.body.classList.add('is-details-open');
 
   const closeButton = document.querySelector<HTMLButtonElement>('#closeDetailsButton');
   const overlay = document.querySelector<HTMLDivElement>('#detailsOverlay');
 
+  closeButton?.focus();
   closeButton?.addEventListener('click', closeRideDetails);
 
   overlay?.addEventListener('click', (event) => {
@@ -310,11 +329,19 @@ function openRideDetails(rideId: number): void {
       closeRideDetails();
     }
   });
+
+  document.addEventListener('keydown', handleDetailsKeydown);
 }
 
 function closeRideDetails(): void {
   const overlay = document.querySelector('#detailsOverlay');
+
   overlay?.remove();
+  document.body.classList.remove('is-details-open');
+  document.removeEventListener('keydown', handleDetailsKeydown);
+
+  lastFocusedElement?.focus();
+  lastFocusedElement = null;
 }
 
 function setupDetailsEvents(): void {
