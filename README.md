@@ -1,6 +1,6 @@
 # Mobility Operations Dashboard
 
-Este é um dashboard frontend para acompanhar operações de mobilidade urbana, como corridas e entregas.
+Dashboard frontend para acompanhar operações de mobilidade urbana, como corridas e entregas.
 
 Criei este projeto para praticar e demonstrar fundamentos importantes de desenvolvimento Frontend, incluindo TypeScript, JavaScript puro, CSS, consumo de dados com `fetch`, filtros, ordenação, responsividade, acessibilidade e testes.
 
@@ -42,6 +42,7 @@ Alguns pontos que trabalhei neste projeto:
 * melhoria de acessibilidade no painel de detalhes;
 * tratamento de estados como carregamento e lista vazia;
 * layout responsivo usando CSS puro;
+* aplicação leve, sem frameworks de interface;
 * testes unitários simples com Vitest;
 * build de produção com Vite;
 * deploy na Vercel.
@@ -68,9 +69,11 @@ Também optei por usar JavaScript/TypeScript sem frameworks de interface, para r
 
 ## Relação com a vaga
 
-Este projeto foi pensado para demonstrar habilidades relacionadas a desenvolvimento Frontend em um contexto de mobilidade urbana.
+Este projeto foi pensado para demonstrar habilidades relacionadas a desenvolvimento Frontend em um contexto de mobilidade urbana e entregas.
 
-Ele trabalha com pontos importantes para esse tipo de aplicação, como visualização de dados operacionais, filtros, busca, ordenação, consumo de API, responsividade, organização de código e atenção à experiência do usuário.
+A aplicação trabalha com visualização de dados operacionais, indicadores, filtros, busca, ordenação, consumo de dados, responsividade, organização de código e atenção à experiência do usuário.
+
+Esses pontos se conectam diretamente com aplicações de produto voltadas para mobilidade urbana, delivery e gestão operacional.
 
 ## Estrutura do projeto
 
@@ -84,7 +87,6 @@ mobility-operations-dashboard/
 ├── src/
 │   ├── api/
 │   │   └── mobilityApi.ts
-│   ├── assets/
 │   ├── styles/
 │   │   └── main.css
 │   ├── types/
