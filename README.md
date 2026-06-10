@@ -24,6 +24,21 @@ Projeto publicado: https://mobility-operations-dashboard.vercel.app/
 * Layout responsivo para desktop e mobile
 * Consumo de dados usando uma API simulada em JSON
 
+## Destaques técnicos
+
+Alguns pontos que trabalhei neste projeto:
+
+* uso de TypeScript para tipar os dados das operações;
+* separação da lógica de API, tipos, utilitários e estilos;
+* consumo de dados com `fetch`;
+* filtros combinados por status, cidade e busca textual;
+* ordenação por data e valor;
+* renderização dinâmica dos cards;
+* painel lateral de detalhes usando manipulação do DOM;
+* tratamento de estados como carregamento e lista vazia;
+* layout responsivo usando CSS puro;
+* build de produção com Vite.
+
 ## Tecnologias utilizadas
 
 * HTML
