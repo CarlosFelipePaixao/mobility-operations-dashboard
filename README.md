@@ -10,6 +10,8 @@ A ideia foi construir uma interface parecida com algo que poderia ser usado por 
 
 Projeto publicado: https://mobility-operations-dashboard.vercel.app/
 
+![Preview do Mobility Operations Dashboard](./docs/preview-dashboard.png)
+
 ## Funcionalidades
 
 * Dashboard com indicadores das operações
