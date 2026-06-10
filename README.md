@@ -66,6 +66,12 @@ Por isso, além da parte visual, também trabalhei com lógica de busca, filtros
 
 Também optei por usar JavaScript/TypeScript sem frameworks de interface, para reforçar a base de Frontend e demonstrar domínio dos fundamentos.
 
+## Relação com a vaga
+
+Este projeto foi pensado para demonstrar habilidades relacionadas a desenvolvimento Frontend em um contexto de mobilidade urbana.
+
+Ele trabalha com pontos importantes para esse tipo de aplicação, como visualização de dados operacionais, filtros, busca, ordenação, consumo de API, responsividade, organização de código e atenção à experiência do usuário.
+
 ## Estrutura do projeto
 
 ```txt
