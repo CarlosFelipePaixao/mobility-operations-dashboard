@@ -8,7 +8,7 @@ A ideia foi construir uma interface parecida com algo que poderia ser usado por 
 
 ## Preview
 
-Em breve adicionarei aqui o link do projeto publicado.
+Projeto publicado: https://mobility-operations-dashboard.vercel.app/
 
 ## Funcionalidades
 
