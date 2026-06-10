@@ -2,7 +2,7 @@
 
 Este é um dashboard frontend para acompanhar operações de mobilidade urbana, como corridas e entregas.
 
-Criei este projeto para praticar e demonstrar alguns pontos importantes de desenvolvimento Frontend: TypeScript, JavaScript puro, CSS, consumo de dados via `fetch`, filtros, ordenação, responsividade e organização de código.
+Criei este projeto para praticar e demonstrar fundamentos importantes de desenvolvimento Frontend, incluindo TypeScript, JavaScript puro, CSS, consumo de dados com `fetch`, filtros, ordenação, responsividade, acessibilidade e testes.
 
 A ideia foi construir uma interface parecida com algo que poderia ser usado por uma empresa de mobilidade para visualizar operações em andamento, concluídas, pendentes ou canceladas.
 
@@ -21,25 +21,30 @@ Projeto publicado: https://mobility-operations-dashboard.vercel.app/
 * Filtro por cidade
 * Ordenação por data ou valor
 * Painel lateral com detalhes da operação
+* Fechamento do painel com botão, clique fora ou tecla `Esc`
 * Estado de carregamento
 * Mensagem quando nenhum resultado é encontrado
 * Layout responsivo para desktop e mobile
 * Consumo de dados usando uma API simulada em JSON
+* Testes simples para filtros e ordenação
 
 ## Destaques técnicos
 
 Alguns pontos que trabalhei neste projeto:
 
 * uso de TypeScript para tipar os dados das operações;
-* separação da lógica de API, tipos, utilitários e estilos;
+* separação da lógica de API, tipos, utilitários, filtros e estilos;
 * consumo de dados com `fetch`;
 * filtros combinados por status, cidade e busca textual;
 * ordenação por data e valor;
 * renderização dinâmica dos cards;
 * painel lateral de detalhes usando manipulação do DOM;
+* melhoria de acessibilidade no painel de detalhes;
 * tratamento de estados como carregamento e lista vazia;
 * layout responsivo usando CSS puro;
-* build de produção com Vite.
+* testes unitários simples com Vitest;
+* build de produção com Vite;
+* deploy na Vercel.
 
 ## Tecnologias utilizadas
 
@@ -49,28 +54,24 @@ Alguns pontos que trabalhei neste projeto:
 * JavaScript Vanilla
 * Fetch API
 * Vite
+* Vitest
 * Git e GitHub
+* Vercel
 
 ## Por que fiz este projeto
 
 Meu objetivo com este projeto foi criar algo mais próximo de uma situação real de trabalho, em vez de apenas uma tela estática.
 
-Por isso, além da parte visual, também trabalhei com:
+Por isso, além da parte visual, também trabalhei com lógica de busca, filtros, ordenação, renderização dinâmica, organização de código, responsividade, acessibilidade e testes.
 
-* busca e filtros dinâmicos;
-* ordenação dos dados;
-* renderização dos cards com TypeScript;
-* separação entre tipos, API, utilitários e estilos;
-* tratamento de estados da interface;
-* layout responsivo;
-* interação com painel de detalhes.
-
-Também optei por usar JavaScript/TypeScript sem frameworks de interface, para reforçar a base de Frontend e mostrar domínio dos fundamentos.
+Também optei por usar JavaScript/TypeScript sem frameworks de interface, para reforçar a base de Frontend e demonstrar domínio dos fundamentos.
 
 ## Estrutura do projeto
 
 ```txt
 mobility-operations-dashboard/
+├── docs/
+│   └── preview-dashboard.png
 ├── public/
 │   └── api/
 │       └── rides.json
@@ -83,10 +84,13 @@ mobility-operations-dashboard/
 │   ├── types/
 │   │   └── ride.ts
 │   ├── utils/
-│   │   └── formatters.ts
+│   │   ├── formatters.ts
+│   │   ├── rideFilters.ts
+│   │   └── rideFilters.test.ts
 │   └── main.ts
 ├── index.html
 ├── package.json
+├── tsconfig.json
 └── README.md
 ```
 
@@ -122,6 +126,16 @@ Depois acesse no navegador:
 http://localhost:5173
 ```
 
+## Testes
+
+Para rodar os testes:
+
+```bash
+npm run test
+```
+
+Os testes cobrem funções simples de filtro, busca, ordenação e listagem de cidades únicas.
+
 ## Build
 
 Para gerar a versão de produção:
@@ -145,17 +159,18 @@ Durante o desenvolvimento, trabalhei principalmente com:
 * manipulação do DOM sem framework;
 * consumo de dados com `fetch`;
 * criação de filtros e ordenação;
+* separação de lógica para facilitar testes;
 * renderização dinâmica de componentes;
 * responsividade com CSS puro;
+* melhoria de acessibilidade em componentes interativos;
+* testes unitários simples com Vitest;
 * versionamento com Git;
-* melhoria da experiência do usuário com estados de loading, lista vazia e painel de detalhes.
+* deploy de aplicação Frontend na Vercel.
 
-## Próximos passos
-
-Algumas melhorias que pretendo adicionar:
+## Melhorias implementadas
 
 * [x] Publicar o projeto em uma plataforma de deploy
 * [x] Adicionar screenshots no README
 * [x] Adicionar mais dados simulados
-* [ ] Melhorar a acessibilidade do painel de detalhes
-* [ ] Criar testes simples para as funções de filtro e ordenação
+* [x] Melhorar a acessibilidade do painel de detalhes
+* [x] Criar testes simples para as funções de filtro e ordenação
